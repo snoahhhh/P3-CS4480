@@ -1,0 +1,97 @@
+services:
+  r1:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      neth1:
+        ipv4_address: 10.0.14.4
+      nettop:
+        ipv4_address: 10.0.16.4
+      netbottom:
+        ipv4_address: 10.0.17.4
+  r2:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      nettop:
+        ipv4_address: 10.0.16.5
+        
+  r3:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      neth2:
+        ipv4_address: 10.0.15.4
+      nettop:
+        ipv4_address: 10.0.16.6
+      netbottom:
+        ipv4_address: 10.0.17.6        
+  r4:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      netbottom:
+        ipv4_address: 10.0.17.5
+
+  ha:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true    
+    networks:
+      neth1:
+        ipv4_address: 10.0.14.3
+
+  hb:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true    
+    networks:
+      neth2:
+        ipv4_address: 10.0.15.3
+
+networks:
+  neth1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.14.0/24
+  neth2:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.15.0/24
+  nettop:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.16.0/24
+  netbottom:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.17.0/24
+
+
+
