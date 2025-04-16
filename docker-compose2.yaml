@@ -1,0 +1,121 @@
+services:
+  r1:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      neth1:
+        ipv4_address: 10.0.11.10
+      netr1:
+        ipv4_address: 10.0.21.4
+      netr2:
+        ipv4_address: 10.0.22.4
+      netr4:
+        ipv4_address: 10.0.24.4
+  r2:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      netr1:
+        ipv4_address: 10.0.21.5
+      netr2:
+        ipv4_address: 10.0.22.5
+      netr3:
+        ipv4_address: 10.0.23.5
+
+  r3:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      neth2:
+        ipv4_address: 10.0.12.10
+      netr2:
+        ipv4_address: 10.0.22.6
+      netr3:
+        ipv4_address: 10.0.23.6
+      netr4:
+        ipv4_address: 10.0.24.6
+    
+    
+  r4:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    networks:
+      netr1:
+        ipv4_address: 10.0.21.7
+      netr4:
+        ipv4_address: 10.0.24.7
+      netr3:
+        ipv4_address: 10.0.23.7
+
+  ha:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true    
+    networks:
+      neth1:
+        ipv4_address: 10.0.11.3
+
+  hb:
+    build: .
+    stdin_open: true
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true    
+    networks:
+      neth2:
+        ipv4_address: 10.0.12.3
+
+networks:
+  neth1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.11.0/24
+  neth2:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.12.0/24
+  netr1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.21.0/24
+  netr2:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.22.0/24
+  netr3:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.23.0/24
+  netr4:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.24.0/24
+
+
+
